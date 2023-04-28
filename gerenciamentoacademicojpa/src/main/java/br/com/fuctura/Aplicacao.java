@@ -1,17 +1,15 @@
 package br.com.fuctura;
 
-import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.persistence.TypedQuery;
-
+import DAO.AlunoDAO;
+import DAO.IAlunoDAO;
 import br.com.fuctura.config.Conexao;
 import br.com.fuctura.config.Emteste;
 import br.com.fuctura.entidades.Aluno;
-import br.com.fuctura.entidades.AlunoDAO;
 import br.com.fuctura.entidades.Endereco;
 
 public class Aplicacao {
@@ -24,7 +22,7 @@ public class Aplicacao {
 
 		Conexao conn = new Conexao("FUCTURA-PU");
 		Emteste em = new Emteste(conn);
-		AlunoDAO dao = new AlunoDAO(em);
+		IAlunoDAO dao = new AlunoDAO(em);
 		
 		menuPrincipal(a = new Aluno(),end = new Endereco(),dao);
 			
@@ -54,7 +52,7 @@ public class Aplicacao {
 		
 
 	
-	public static void menuPrincipal(Aluno a, Endereco end, AlunoDAO dao) {
+	public static void menuPrincipal(Aluno a, Endereco end, IAlunoDAO dao) {
 		Scanner s = new Scanner(System.in);
 		Scanner n = new Scanner(System.in);
 		int opc = 0;
@@ -98,7 +96,7 @@ public class Aplicacao {
 		n.close();
 	}
 
-	public static void menuCadastro(Aluno a, Endereco end, AlunoDAO dao) {// MENU DE CADASTRO DO ALUNO
+	public static void menuCadastro(Aluno a, Endereco end, IAlunoDAO dao) {// MENU DE CADASTRO DO ALUNO
 		
 		Scanner s = new Scanner(System.in);
 		Scanner n = new Scanner(System.in);
@@ -215,7 +213,7 @@ public class Aplicacao {
 		dao.inserirEndereco(end);
 	}
 
-	public static void menuConsulta(AlunoDAO dao) {  // MENU DE CONSULTA 
+	public static void menuConsulta(IAlunoDAO dao) {  // MENU DE CONSULTA 
 		Scanner s = new Scanner(System.in);
 		Scanner n = new Scanner(System.in);
 		int opc = 0;
@@ -240,7 +238,7 @@ public class Aplicacao {
 				System.out.println("Orgão Emissor: " + aluno.getOrgaoEmissor());
 				System.out.println("UF: " + aluno.getUf());
 				
-				System.out.println("Data de emissão: ") ;
+				manipulaDatas(aluno);
 				System.out.println("INFORMAÇÕES DE CONTATO: ");
 				System.out.println("Email: " + aluno.getEmail());
 				System.out.println("Celular/whatsapp: "+aluno.getCelular());
@@ -257,7 +255,7 @@ public class Aplicacao {
 		case 2:										// CONSULTA ALUNO POR CPF
 			System.out.println("Consultar Alunos por CPF");
 			System.out.println("Digite o CPF do Aluno desejado: ");
-			cpf = s.next();
+			cpf = s.next();  
 			List<Aluno> alunos = dao.consultarCPF(cpf);
 			for (Aluno aluno : alunos) {
 				System.out.println("INFORMAÇÕES DO ALUNO:");
@@ -287,7 +285,7 @@ public class Aplicacao {
 
 	}
 
-	public static void menuExclusao(AlunoDAO dao) {				//MENU DE EXCLUSAO
+	public static void menuExclusao(IAlunoDAO dao) {				//MENU DE EXCLUSAO
 		Scanner s = new Scanner(System.in);
 		Scanner n = new Scanner(System.in);
 		int opc = 0;
@@ -315,7 +313,7 @@ public class Aplicacao {
 		}
 	}
 
-	public static void menuUpdate(AlunoDAO dao) {			//MENU DE UPDATE
+	public static void menuUpdate(IAlunoDAO dao) {			//MENU DE UPDATE
 		Scanner s = new Scanner(System.in);
 		Scanner n = new Scanner(System.in);
 		int opc = 0;
