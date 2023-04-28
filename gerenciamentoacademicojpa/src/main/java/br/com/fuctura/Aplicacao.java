@@ -35,19 +35,25 @@ public class Aplicacao {
 	public static boolean validaEstado(String uf) { // CODIGO QUE VALIDA O ESTADO
 		String estadosValidos[] = { "PE", "DF", "AM", "PB", "PI", "RJ", "SP", "MG", "MS", "MT", "RS", "PR", "AC", "MA",
 				"GO", "ES", "BA", "CE", "SC", "RN", "PA", "AL", "RR", "SER", "TO", "AP" };
-
-		for (int i = 0; i < estadosValidos.length; i++) {
-			if (uf.equalsIgnoreCase(estadosValidos[i])) {
-				return true;
-
-			} else {
-				return false;
+		boolean valida = false;
+		for(int i = 0; i<estadosValidos.length  ;i++) {
+		
+			if(uf.equalsIgnoreCase(estadosValidos[i])) {
+				valida = true;
+				i = estadosValidos.length;
 			}
+			}
+			
+			
+		return valida;	
 		}
+		
+			
+	
 
-		return false;
+		
 
-	}
+	
 	public static void menuPrincipal(Aluno a, Endereco end, AlunoDAO dao) {
 		Scanner s = new Scanner(System.in);
 		Scanner n = new Scanner(System.in);
